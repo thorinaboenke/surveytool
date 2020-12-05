@@ -157,26 +157,30 @@ export async function createSurvey(title: string, token: string) {
     return false;
   }
   const user = await getUserBySessionToken(token);
-  const survey = await sql<Survey[]>`
+  if (user) {
+    const survey = await sql<Survey[]>`
   INSERT into surveys (title, user_id) VALUES (${title},${user.userId} )
   Returning *;`;
-  console.log(survey);
-  return survey.map((s: Survey) => camelcaseKeys(s))[0];
+    console.log(survey);
+    return survey.map((s: Survey) => camelcaseKeys(s))[0];
+  }
 }
 
 export async function getQuestionListBySurveyId(id: number, token: string) {
   const user = await getUserBySessionToken(token);
-  const questions = await sql<Question[]>`
+  if (user) {
+    const questions = await sql<Question[]>`
   SELECT * from questions
   WHERE questions.survey_id = ${id}
  ;`;
-  console.log(questions);
-  return questions.map((s: Question) => camelcaseKeys(s));
+    console.log(questions);
+    return questions.map((s: Question) => camelcaseKeys(s));
+  }
 }
 
 export async function createQuestion(text: string, id: number, token: string) {
   if (!token) {
-    return false;
+    return;
   }
   const question = await sql<Question[]>`
   INSERT into questions (question_text, survey_id) VALUES (${text},${id})
