@@ -1,33 +1,33 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { deleteSurveyById, createSurvey } from '../../util/database';
+import { deleteQuestionById, createQuestion } from '../../util/database';
 
 export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse,
 ) {
   if (request.method === 'DELETE') {
-    const { surveyId } = request.body;
+    const { questionId } = request.body;
     const token = request.cookies.session;
 
-    const survey = await deleteSurveyById(surveyId, token);
-    if (!survey) {
+    const question = await deleteQuestionById(questionId, token);
+    if (!question) {
       return response.status(401).send({ success: false });
     }
     return response.status(200).send({ success: true });
   }
   if (request.method === 'POST') {
-    const { title } = request.body;
+    const { text, surveyId } = request.body;
     const token = request.cookies.session;
-    if (!title) {
+    if (!text) {
       return response.status(401).send({
         success: false,
-        errors: [{ message: 'Survey needs a title' }],
+        errors: [{ message: 'Question cannot be empty' }],
       });
     }
-    const survey = await createSurvey(title, token);
-    if (!survey) {
+    const question = await createQuestion(text, surveyId, token);
+    if (!question) {
       return response.status(401).send({ success: false });
     }
-    return response.status(200).send({ success: true, survey: survey });
+    return response.status(200).send({ success: true });
   }
 }

@@ -46,9 +46,7 @@ function Header(props) {
           ) : (
             <li>
               <Link href="/login">
-                <a data-cy="header-link-login" className="log">
-                  Log in
-                </a>
+                <a className="log">Log in</a>
               </Link>
             </li>
           )}

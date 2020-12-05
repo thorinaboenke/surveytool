@@ -14,13 +14,10 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout loggedIn={props.loggedIn} user={props.user}>
-        <div>A tool to create surveys and collect feedback</div>
-        <div className="instructions">
-          <Link href="/signup">
-            <a>Create an account </a>
-          </Link>
-          to start with with your first survey
-        </div>
+        <div>You're survey was deleted</div>
+        <Link href="/dashboard">
+          <a>Set up another one? </a>
+        </Link>
       </Layout>
     </div>
   );
@@ -30,9 +27,6 @@ export async function getServerSideProps(context) {
   let { session: token } = nextCookies(context);
   const loggedIn = (await isSessionTokenValid(token)) || null;
   const user = (await getUserBySessionToken(token)) || null;
-  if (typeof token === 'undefined') {
-    token = null;
-  }
 
   return { props: { loggedIn: loggedIn, user: user } };
 }

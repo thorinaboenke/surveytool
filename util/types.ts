@@ -13,10 +13,21 @@ export type Session = {
 export type Survey = {
   surveyId: number;
   title: string;
+  createdAt: string;
 };
 
 export type Result = {
   questionText: string;
   participants: number;
   averageScore: number;
+};
+export type Question = {
+  surveyId: number;
+  questionId: number;
+  questionText: string;
+};
+export type Answer = {
+  answerId: number;
+  questionId: number;
+  score: number;
 };

@@ -2,7 +2,7 @@ import postgres from 'postgres';
 import dotenv from 'dotenv';
 import camelcaseKeys from 'camelcase-keys';
 import extractHerokuDatabaseEnvVars from './extractHerokuDatabaseEnvVars';
-import { User, Session, Survey, Result } from './types';
+import { User, Session, Survey, Result, Question, Answer } from './types';
 
 extractHerokuDatabaseEnvVars();
 dotenv.config();
@@ -141,9 +141,65 @@ export async function getSurveyResultsById(id: number) {
   return survey.map((r: Result) => camelcaseKeys(r));
 }
 
-// SELECT COUNT(score)
-// FROM answers
-// WHERE answers.question_id = (SELECT question_id from questions)questions.question_id;
+export async function deleteSurveyById(id: number, token: string) {
+  if (!token) {
+    return false;
+  }
+  const survey = await sql<Survey[]>`
+    DELETE FROM surveys where survey_id = ${id} AND user_id = (SELECT user_id FROM sessions WHERE
+    sessions.token = ${token} )
+    Returning *;`;
+  return survey.map((s: Survey) => camelcaseKeys(s))[0];
+}
 
-// SELECT AVG(score)
-// FROM answers
+export async function createSurvey(title: string, token: string) {
+  if (!token) {
+    return false;
+  }
+  const user = await getUserBySessionToken(token);
+  const survey = await sql<Survey[]>`
+  INSERT into surveys (title, user_id) VALUES (${title},${user.userId} )
+  Returning *;`;
+  console.log(survey);
+  return survey.map((s: Survey) => camelcaseKeys(s))[0];
+}
+
+export async function getQuestionListBySurveyId(id: number, token: string) {
+  const user = await getUserBySessionToken(token);
+  const questions = await sql<Question[]>`
+  SELECT * from questions
+  WHERE questions.survey_id = ${id}
+ ;`;
+  console.log(questions);
+  return questions.map((s: Question) => camelcaseKeys(s));
+}
+
+export async function createQuestion(text: string, id: number, token: string) {
+  if (!token) {
+    return false;
+  }
+  const question = await sql<Question[]>`
+  INSERT into questions (question_text, survey_id) VALUES (${text},${id})
+ `;
+  console.log(question);
+  return question.map((q: Question) => camelcaseKeys(q))[0];
+}
+
+export async function deleteQuestionById(id: number, token: string) {
+  if (!token) {
+    return false;
+  }
+  const question = await sql<Question[]>`
+    DELETE FROM questions where question_id = ${id}
+    RETURNING *
+    `;
+  return question.map((q: Question) => camelcaseKeys(q))[0];
+}
+
+export async function addAnswerByQuestionId(id: number, score: number) {
+  const answer = await sql<Answer[]>`
+  INSERT into answers (score, question_id) VALUES (${score},${id})
+ `;
+  console.log(answer);
+  return answer.map((q: Answer) => camelcaseKeys(q))[0];
+}
