@@ -27,12 +27,12 @@ Deciding on the core features, considering what is feasible in the given timefra
 - dynamic url for filling out the survey (anonymously)
 - rating options 1-5 for each question/category
 - progress tracker, thank you message
-- (nice to have) possiblity for free text feedback, display when the survey was created
+- (nice to have) possibility for free text feedback, display when the survey was created
 
 ## Database Schema
 
 PostgreSQL database with tables for: Users, Session, Surveys, Question and Answers. Created in https://sqldbm.com
-<img src="" width="600" alt='database schema'>
+<img src="https://github.com/thorinaboenke/surveytool/blob/master/public/t-survey_database_schema.png" width="600" alt='database schema'>
 
 ## App structure
 
