@@ -26,7 +26,7 @@ const sql =
       // has an "unauthorized" certificate
       // https://devcenter.heroku.com/changelog-items/852
       postgres({ ssl: { rejectUnauthorized: false } })
-    : postgres({ idle_timeout: 5 });
+    : postgres();
 
 export async function getUserByUsername(username: string) {
   const users = await sql<User[]>`
