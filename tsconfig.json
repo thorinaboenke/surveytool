@@ -12,7 +12,7 @@
     "allowJs": true,
     "strict": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "esModuleInterop": true,
     "downlevelIteration": true,
     "resolveJsonModule": true,
@@ -31,5 +31,7 @@
     "**/*.tsx",
     "**/*.js"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
