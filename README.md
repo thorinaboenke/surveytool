@@ -1,6 +1,7 @@
 # Survey Tool MVP 🚀
 
 This app got created as a coding challenge during a weekend following a job interview for a developer position.
+https://survey-t.herokuapp.com
 
 ## Choosing a task 🤔
 
@@ -57,7 +58,7 @@ Deploy via Heroku
 
 - no time for proper UX research, so i'll just go wild in whatever time is left. The world definitely needs more hotpink 👩🏻‍🎤, and https://www.sessions.edu/color-calculator/ makes a fitting colorscheme.
 <img src="https://github.com/thorinaboenke/surveytool/blob/master/public/colorscheme.png" width="300" alt='colorscheme'>
-- style for desktop and mobile view in parallel ( here trying for solutions that work for both without having to write a lot of media queries)
+- style for desktop and mobile view in parallel (here trying for solutions that work for both without having to write a lot of media queries)
 
 ## Tidying 🧹
 
