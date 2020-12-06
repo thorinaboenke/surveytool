@@ -9,6 +9,7 @@ import {
 } from '../../util/database';
 import nextCookies from 'next-cookies';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function Results(props) {
   const router = useRouter();
@@ -28,7 +29,7 @@ export default function Results(props) {
     const { success } = await response.json();
     if (success) router.push('/deleted');
   }
-
+  console.log({ surveyResults });
   return (
     <div className={styles.container}>
       <Head>
@@ -36,23 +37,36 @@ export default function Results(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout loggedIn={props.loggedIn} user={props.user}>
-        <div className="container">
-          <div className="title">{survey.title}</div>
-          {surveyResults.map((result) => {
-            return (
-              <div key={result.questionText}>
-                <div>{result.questionText}</div>
-                <div>participants: {result.participants} </div>
+        <div className="results">
+          <div className="container">
+            <div className="title">{survey.title}</div>
+            {surveyResults.length === 0 && (
+              <>
+                <div>This survey does not have any participants yet</div>
                 <div>
-                  average rating: {Math.floor(result?.averageScore * 10) / 10}
+                  <Link href={`/questions/${survey.surveyId}`}>
+                    <a>Edit</a>
+                  </Link>
                 </div>
-              </div>
-            );
-          })}
-          <a href={`/answers/${survey.surveyId}`}>{link}</a>
-          <button onClick={() => handleDelete(survey.surveyId)}>
-            Delete this survey
-          </button>
+              </>
+            )}
+            {surveyResults.map((result) => {
+              return (
+                <div key={result.questionText}>
+                  <div className="question-text">{result.questionText}</div>
+                  <div>participants: {result.participants} </div>
+                  <div>
+                    average rating: {Math.floor(result?.averageScore * 10) / 10}
+                  </div>
+                </div>
+              );
+            })}
+            <div className="instructions">Link for participants:</div>
+            <a href={`/answers/${survey.surveyId}`}>{link}</a>
+            <button onClick={() => handleDelete(survey.surveyId)}>
+              Delete this survey
+            </button>
+          </div>
         </div>
       </Layout>
     </div>
@@ -64,7 +78,7 @@ export async function getServerSideProps(context) {
   if (await isSessionTokenValid(token)) {
     const user = await getUserBySessionToken(token);
     const survey = await getSurveyById(Number(context.query.id));
-    survey.createdAt = JSON.stringify(survey.createdAt);
+    survey.createdAt = JSON.stringify(survey?.createdAt);
 
     const surveyResults = await getSurveyResultsById(Number(context.query.id));
 

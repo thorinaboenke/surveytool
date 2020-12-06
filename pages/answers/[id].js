@@ -15,7 +15,10 @@ export default function Results(props) {
   const survey = props.survey;
 
   useEffect(() => {
-    if (questionDisplayed === questionList.length) {
+    if (
+      questionDisplayed === questionList.length &&
+      questionList.length !== 0
+    ) {
       router.push('/thankyou');
     }
   }, [questionDisplayed, router, questionList.length]);
@@ -47,6 +50,7 @@ export default function Results(props) {
       <Layout loggedIn={props.loggedIn} user={props.user}>
         <div className="answers">
           <div className="title">{survey.title}</div>
+
           <div>
             {' '}
             {questionDisplayed + 1} of {questionList.length}
@@ -67,9 +71,12 @@ export default function Results(props) {
 export async function getServerSideProps(context) {
   const survey = await getSurveyById(Number(context.query.id));
   survey.createdAt = JSON.stringify(survey.createdAt);
+
   const questionList = await getQuestionListBySurveyId(
     Number(context.query.id),
   );
+
+  console.log(questionList);
   return {
     props: {
       survey: survey,

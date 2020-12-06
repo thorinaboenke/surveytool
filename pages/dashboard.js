@@ -9,7 +9,7 @@ import { getUserBySessionToken, getSurveysByToken } from '../util/database';
 import nextCookies from 'next-cookies';
 
 export default function Dashboard(props) {
-  const surveys = props.surveys;
+  const [surveys, setSurveys] = useState(props.surveys);
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -29,12 +29,14 @@ export default function Dashboard(props) {
       }),
     });
     const { success, newSurvey } = await response.json();
-
     if (!success) {
-      setErrorMessage('Creating a Survey failed');
+      setErrorMessage('Creating a survey failed');
     } else {
       setMessage('Survey created');
-      if (success) router.push(`/questions/${newSurvey.surveyId}`);
+      setSurveys({ ...surveys, newSurvey });
+      console.log(surveys);
+
+      router.push(`/questions/${newSurvey.surveyId}`);
     }
   };
 
@@ -48,7 +50,7 @@ export default function Dashboard(props) {
         <div className="dashboard">
           <div className="container">
             <div>
-              Enter the title for a new Survey. Click 'Create survey'. Define a
+              Enter the title for a new survey. Click 'Create survey'. Define a
               set of questions. Send the link to participants. Participants can
               give a rating between 1 (worst rating/don't agree at all) and 5
               (best rating/agree completely). Click 'Edit' to add or remove
@@ -78,23 +80,27 @@ export default function Dashboard(props) {
               {errorMessage && <div>{errorMessage}</div>}
             </form>
             <div className="surveycontainer">
-              {surveys.map((survey) => {
-                return (
-                  <div key={survey.title}>
-                    <div className="title">{survey.title}</div>{' '}
-                    <div>
-                      <Link href={`/questions/${survey.surveyId}`}>
-                        <a>Edit</a>
-                      </Link>
-                    </div>
-                    <div>
-                      <Link href={`/results/${survey.surveyId}`}>
-                        <a>Go to results</a>
-                      </Link>
-                    </div>
-                  </div>
-                );
-              })}
+              {surveys && (
+                <>
+                  {surveys.map((survey) => {
+                    return (
+                      <div key={survey.title}>
+                        <div className="title">{survey.title}</div>{' '}
+                        <div>
+                          <Link href={`/questions/${survey.surveyId}`}>
+                            <a>Edit</a>
+                          </Link>
+                        </div>
+                        <div>
+                          <Link href={`/results/${survey.surveyId}`}>
+                            <a>Go to results</a>
+                          </Link>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </>
+              )}
             </div>
           </div>
         </div>

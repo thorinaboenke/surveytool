@@ -12,7 +12,7 @@ import {
 } from '../../util/database';
 import { useRouter } from 'next/router';
 
-export default function Results(props) {
+export default function Questions(props) {
   const [question, setQuestion] = useState('');
   const [questionList, setQuestionList] = useState(props.questionList);
   const [errorMessage, setErrorMessage] = useState('');
@@ -53,7 +53,6 @@ export default function Results(props) {
     });
     const { success } = await response.json();
     if (!success) {
-      setErrorMessage('Oops, something went wrong');
     }
   }
 
@@ -67,6 +66,11 @@ export default function Results(props) {
         <div className="questions">
           <div className="container">
             <div className="title"> {survey.title}</div>
+            <div>
+              <Link href={`/results/${survey.surveyId}`}>
+                <a>Go to results</a>
+              </Link>
+            </div>
             <form>
               <label htmlFor="question">New question/category</label>
               <input
@@ -96,13 +100,7 @@ export default function Results(props) {
                 </div>
               );
             })}
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(link);
-              }}
-            >
-              Copy survey link to clipboard
-            </button>
+            <div className="instructions">Link for participants:</div>
             <a href={`/answers/${survey.surveyId}`}>{link}</a>
           </div>
         </div>
@@ -122,7 +120,6 @@ export async function getServerSideProps(context) {
       Number(context.query.id),
       token,
     );
-    console.log(questionList);
 
     return {
       props: {

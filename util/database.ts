@@ -158,11 +158,11 @@ export async function createSurvey(title: string, token: string) {
   }
   const user = await getUserBySessionToken(token);
   if (user) {
-    const survey = await sql<Survey[]>`
+    const newSurvey = await sql<Survey[]>`
   INSERT into surveys (title, user_id) VALUES (${title},${user.userId} )
   Returning *;`;
-    console.log(survey);
-    return survey.map((s: Survey) => camelcaseKeys(s))[0];
+    console.log(newSurvey);
+    return newSurvey.map((s: Survey) => camelcaseKeys(s))[0];
   }
 }
 
@@ -171,7 +171,6 @@ export async function getQuestionListBySurveyId(id: number) {
   SELECT * from questions
   WHERE questions.survey_id = ${id}
  ;`;
-  console.log(questions);
   return questions.map((s: Question) => camelcaseKeys(s));
 }
 
@@ -182,7 +181,6 @@ export async function createQuestion(text: string, id: number, token: string) {
   const question = await sql<Question[]>`
   INSERT into questions (question_text, survey_id) VALUES (${text},${id})
  `;
-  console.log(question);
   return question.map((q: Question) => camelcaseKeys(q))[0];
 }
 
@@ -201,6 +199,5 @@ export async function addAnswerByQuestionId(id: number, score: number) {
   const answer = await sql<Answer[]>`
   INSERT into answers (score, question_id) VALUES (${score},${id})
  `;
-  console.log(answer);
   return answer.map((q: Answer) => camelcaseKeys(q))[0];
 }

@@ -11,7 +11,7 @@ export default async function handler(
 
     const survey = await deleteSurveyById(surveyId, token);
     if (!survey) {
-      return response.status(401).send({ success: false });
+      return response.status(500).send({ success: false });
     }
     return response.status(200).send({ success: true });
   }
@@ -24,10 +24,10 @@ export default async function handler(
         errors: [{ message: 'Survey needs a title' }],
       });
     }
-    const survey = await createSurvey(title, token);
-    if (!survey) {
-      return response.status(401).send({ success: false });
+    const newSurvey = await createSurvey(title, token);
+    if (!newSurvey) {
+      return response.status(500).send({ success: false });
     }
-    return response.status(200).send({ success: true, survey: survey });
+    return response.status(200).send({ success: true, newSurvey: newSurvey });
   }
 }

@@ -27,6 +27,7 @@ export const globalStyles = (
       a {
         color: ${colors.hotpink};
         text-decoration: none;
+        border-bottom: 5px solid rgba(1, 1, 1, 0);
       }
       a:hover {
         border-bottom: 5px solid ${colors.hotpink};
@@ -110,7 +111,8 @@ export const globalStyles = (
       .login button,
       .signup button,
       .dashboard button,
-      .answers button {
+      .answers button,
+      .results button {
         display: block;
         margin: 0;
         margin-top: 2em;
@@ -122,7 +124,7 @@ export const globalStyles = (
         flex-wrap: wrap;
         margin-top: 1em;
         margin-bottom: 1em;
-        justify-content: space-between;
+        justify-content: flex-start;
       }
 
       .surveycontainer div {
@@ -161,9 +163,7 @@ export const globalStyles = (
         flex-direction: column;
         align-items: center;
       }
-      .questions {
-        display: flex;
-      }
+
       .questions form {
         margin-top: 2em;
         display: flex;
@@ -171,6 +171,12 @@ export const globalStyles = (
       }
       .questions button {
         margin: 0.5em;
+      }
+      .results .question-text {
+        color: ${colors.red};
+      }
+      .results .instructions {
+        margin-top: 3em;
       }
     `}
   />
