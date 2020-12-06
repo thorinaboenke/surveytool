@@ -166,16 +166,13 @@ export async function createSurvey(title: string, token: string) {
   }
 }
 
-export async function getQuestionListBySurveyId(id: number, token: string) {
-  const user = await getUserBySessionToken(token);
-  if (user) {
-    const questions = await sql<Question[]>`
+export async function getQuestionListBySurveyId(id: number) {
+  const questions = await sql<Question[]>`
   SELECT * from questions
   WHERE questions.survey_id = ${id}
  ;`;
-    console.log(questions);
-    return questions.map((s: Question) => camelcaseKeys(s));
-  }
+  console.log(questions);
+  return questions.map((s: Question) => camelcaseKeys(s));
 }
 
 export async function createQuestion(text: string, id: number, token: string) {

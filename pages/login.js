@@ -23,7 +23,7 @@ export default function Login(props) {
       <Head>
         <title>Login</title>
       </Head>
-      <div>
+      <div className="login">
         <div className="container">
           <form
             onSubmit={async (e) => {
@@ -45,7 +45,13 @@ export default function Login(props) {
               }
             }}
           >
-            <div className="title">Login</div>
+            <div>
+              Don't have an account?{' '}
+              <Link href="/signup">
+                <a>Register here</a>
+              </Link>
+            </div>
+            <div>Login</div>
             <label htmlFor="username">
               {' '}
               Username
@@ -58,6 +64,7 @@ export default function Login(props) {
                 maxLength={22}
               />
             </label>
+            <br />
             <label htmlFor="password">
               {' '}
               Password
@@ -71,12 +78,6 @@ export default function Login(props) {
             </label>
             <button type="submit">LOG IN</button>
             {errorMessage && <div className="error">{errorMessage}</div>}
-            <div className="instructions">
-              Don't have an account?
-              <Link href="/signup">
-                <a>Register here</a>
-              </Link>
-            </div>
           </form>
         </div>
       </div>
@@ -87,7 +88,7 @@ export default function Login(props) {
 export async function getServerSideProps(context) {
   const { session: token } = nextCookies(context);
 
-  const redirectDestination = context?.query?.returnTo ?? '/';
+  const redirectDestination = context?.query?.returnTo ?? '/dashboard';
   const logged = await isSessionTokenValid(token);
   if (logged) {
     return {

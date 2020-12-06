@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import Layout from '../../components/Layout';
 import styles from '../../styles/Home.module.css';
 import { isSessionTokenValid } from '../../util/auth';
@@ -9,12 +8,12 @@ import {
   getSurveyResultsById,
 } from '../../util/database';
 import nextCookies from 'next-cookies';
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
 export default function Results(props) {
   const router = useRouter();
-  const survey = props.survey;
-  const surveyResults = props.surveyResults;
+  const { survey, surveyResults } = props;
+  const link = `https://survey-t.herokuapp.com/answers/${survey.surveyId}`;
 
   async function handleDelete(id) {
     const response = await fetch('/api/survey', {
@@ -37,20 +36,24 @@ export default function Results(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout loggedIn={props.loggedIn} user={props.user}>
-        <div>{survey.title}</div>
-        {surveyResults.map((result) => {
-          return (
-            <div key={result.questionText}>
-              <div>{result.questionText}</div>
-              <div>{result.participants} participants</div>
-              <div>{result.averageScore.toFixed(2)} average score</div>
-            </div>
-          );
-        })}
-        <div>Link to invite Participants</div>
-        <button onClick={() => handleDelete(survey.surveyId)}>
-          Delete this survey.
-        </button>
+        <div className="container">
+          <div className="title">{survey.title}</div>
+          {surveyResults.map((result) => {
+            return (
+              <div key={result.questionText}>
+                <div>{result.questionText}</div>
+                <div>participants: {result.participants} </div>
+                <div>
+                  average rating: {Math.floor(result?.averageScore * 10) / 10}
+                </div>
+              </div>
+            );
+          })}
+          <a href={`/answers/${survey.surveyId}`}>{link}</a>
+          <button onClick={() => handleDelete(survey.surveyId)}>
+            Delete this survey
+          </button>
+        </div>
       </Layout>
     </div>
   );
@@ -64,7 +67,6 @@ export async function getServerSideProps(context) {
     survey.createdAt = JSON.stringify(survey.createdAt);
 
     const surveyResults = await getSurveyResultsById(Number(context.query.id));
-    console.log(surveyResults);
 
     return {
       props: {

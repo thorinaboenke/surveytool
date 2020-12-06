@@ -15,12 +15,13 @@ import { useRouter } from 'next/router';
 export default function Results(props) {
   const [question, setQuestion] = useState('');
   const [questionList, setQuestionList] = useState(props.questionList);
+  const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
   const survey = props.survey;
   const surveyResults = props.surveyResults;
-  const link = `www.http://localhost:3000/answers/${survey.surveyId}`;
+  const link = `https://survey-t.herokuapp.com/answers/${survey.surveyId}`;
 
-  async function handleDelete(id) {
+  async function handleDeleteQuestion(id) {
     const response = await fetch('/api/questions', {
       method: 'DELETE',
       headers: {
@@ -51,6 +52,9 @@ export default function Results(props) {
       }),
     });
     const { success } = await response.json();
+    if (!success) {
+      setErrorMessage('Oops, something went wrong');
+    }
   }
 
   return (
@@ -60,42 +64,48 @@ export default function Results(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout loggedIn={props.loggedIn} user={props.user}>
-        <div>{survey.title}</div>
-        <form>
-          <label htmlFor="question">Question/Category</label>
-          <input
-            id="question"
-            maxLength={60}
-            onChange={(e) => setQuestion(e.currentTarget.value)}
-            required
-          />
+        <div className="questions">
+          <div className="container">
+            <div className="title"> {survey.title}</div>
+            <form>
+              <label htmlFor="question">New question/category</label>
+              <input
+                id="question"
+                maxLength={60}
+                onChange={(e) => setQuestion(e.currentTarget.value)}
+                required
+              />
 
-          <button
-            type="submit"
-            onClick={() => addQuestion(question, survey.surveyId)}
-          >
-            Add question
-          </button>
-        </form>
-
-        {questionList.map((q) => {
-          return (
-            <div key={q.questionText}>
-              <div>{q.questionText}</div>
-              <button onClick={() => handleDelete(q.questionId)}>
-                Delete this question.
+              <button
+                type="submit"
+                onClick={() => addQuestion(question, survey.surveyId)}
+                disabled={!question}
+              >
+                Add question
               </button>
-            </div>
-          );
-        })}
-        <a href={`/answers/${survey.surveyId}`}>{link}</a>
-        <button
-          onClick={() => {
-            navigator.clipboard.writeText(link);
-          }}
-        >
-          Copy link to clipboard
-        </button>
+              <div className="error">{errorMessage}</div>
+            </form>
+
+            {questionList.map((q) => {
+              return (
+                <div key={q.questionText}>
+                  <div>{q.questionText}</div>
+                  <button onClick={() => handleDeleteQuestion(q.questionId)}>
+                    Delete
+                  </button>
+                </div>
+              );
+            })}
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(link);
+              }}
+            >
+              Copy survey link to clipboard
+            </button>
+            <a href={`/answers/${survey.surveyId}`}>{link}</a>
+          </div>
+        </div>
       </Layout>
     </div>
   );

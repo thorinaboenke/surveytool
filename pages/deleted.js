@@ -8,16 +8,20 @@ import nextCookies from 'next-cookies';
 
 export default function Home(props) {
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>SurveyTool</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout loggedIn={props.loggedIn} user={props.user}>
-        <div>You're survey was deleted</div>
-        <Link href="/dashboard">
-          <a>Set up another one? </a>
-        </Link>
+        <div className="deleted flex">
+          <div className="container">
+            <div>Your survey was deleted</div>
+            <Link href="/dashboard">
+              <a>Set up another one? </a>
+            </Link>
+          </div>
+        </div>
       </Layout>
     </div>
   );

@@ -22,7 +22,7 @@ export default function Signup(props) {
       <Head>
         <title>SurveyTool - Signup</title>
       </Head>
-      <div>
+      <div className="signup">
         <div className="container">
           <form
             onSubmit={async (e) => {
@@ -41,7 +41,6 @@ export default function Signup(props) {
 
               const { success, errors } = await response.json();
               if (success) {
-                console.log('successfully registered');
                 // redirect to homepage if successfully registered
                 const log = await fetch('/api/login', {
                   method: 'POST',
@@ -64,7 +63,14 @@ export default function Signup(props) {
               }
             }}
           >
-            <div className="title">Register</div>
+            <div>
+              {' '}
+              Already have an account?{' '}
+              <Link href="/login">
+                <a>Log in here</a>
+              </Link>
+            </div>
+            <div>Register</div>
             <label htmlFor="username">
               {' '}
               Username
@@ -77,7 +83,7 @@ export default function Signup(props) {
                 onChange={(e) => setUsername(e.currentTarget.value)}
               />
             </label>
-
+            <br />
             <label htmlFor="password">
               {' '}
               Password
@@ -91,13 +97,6 @@ export default function Signup(props) {
             </label>
             {errorMessage && <div className="error">{errorMessage}</div>}
             <button type="submit">SIGN UP</button>
-            <div className="instructions">
-              {' '}
-              Already have an account?{' '}
-              <Link href="/login">
-                <a>Log in here</a>
-              </Link>
-            </div>
           </form>
         </div>
       </div>
@@ -128,8 +127,3 @@ export async function getServerSideProps(context) {
   const token = tokens.create(secret);
   return { props: { token } };
 }
-
-// in node to generate the secret that has to be saved in the .env file:
-// var Tokens = require('csrf');
-// const tokens = new Tokens();
-// const secret = tokens.secretSync()

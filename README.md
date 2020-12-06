@@ -1,12 +1,12 @@
-# Survey Tool MVP
+# Survey Tool MVP 🚀
 
 This app got created as a coding challenge during a weekend following a job interview for a developer position.
 
-## Choose a task
+## Choosing a task 🤔
 
 1. Self Checkout App
 2. Hot Deals Platform
-3. Survey Tool
+3. Survey Tool ✅
 
 and Create a minimum viable product
 
@@ -15,7 +15,9 @@ and Create a minimum viable product
 - Reliability
 - Usability
 
-## Roadmap
+## Roadmap for survey-t 🛣️
+
+Framework: Next.js
 
 Deciding on the core features, considering what is feasible in the given timeframe of 72h (minus other weekend activities, corona test and another job interview... )
 
@@ -29,26 +31,50 @@ Deciding on the core features, considering what is feasible in the given timefra
 - progress tracker, thank you message
 - (nice to have) possibility for free text feedback, display when the survey was created
 
-## Database Schema
+## Database Schema, writing migrations 💻
 
-PostgreSQL database with tables for: Users, Session, Surveys, Question and Answers. Created in https://sqldbm.com
+PostgreSQL database with related tables for: Users, Session, Surveys, Question and Answers. Created in https://sqldbm.com
 <img src="https://github.com/thorinaboenke/surveytool/blob/master/public/t-survey_database_schema.png" width="600" alt='database schema'>
 
 ## App structure
 
+- create the necessary pages and api routes
+
 ## API routes
 
-## Pages
+- create API endpoints for signup, login, saving/modifying surveys, questions and answers to the database
+- write corresponding database queries, inserts etc.
 
-## Deploying
+## Pages 📄
 
-## Styling
+- create form inputs
 
-- no time for proper UX research, so i'll just go wild in whatever time is left. And the world needs more hotpink.
+## Deploying 🛠️
 
-## Other features (for rainy days, in order of importance)
+Deploy via Heroku
 
-- custom slugs to access surveys (instead of the id)
--
+## Styling 🎨
 
-## Lessons learned
+- no time for proper UX research, so i'll just go wild in whatever time is left. The world definitely needs more hotpink 👩🏻‍🎤, and
+- <img src="https://github.com/thorinaboenke/surveytool/blob/master/public/colorscheme.png" width="300" alt='colorscheme'>
+
+## Tidying 🧹
+
+- variable + function naming
+- stray console.logs
+- comments where appropriate
+- double check error handling
+
+## Other features (for future rainy days, in order of importance) 🤓
+
+- custom slugs to access surveys (instead of the ids)
+- free text feedback
+- end-to-end testing
+- abstract some elements into reusable components
+- possibility to leave feedback non-anonymously
+- template invite email
+- better result visualization
+
+## Lessons learned 👩🏻‍🏫
+
+- planning is as least as important as execution, especially in a limited timeframe

@@ -8,18 +8,21 @@ import nextCookies from 'next-cookies';
 
 export default function Home(props) {
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>SurveyTool</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout loggedIn={props.loggedIn} user={props.user}>
-        <div>A tool to create surveys and collect feedback</div>
-        <div className="instructions">
-          <Link href="/signup">
-            <a>Create an account </a>
-          </Link>
-          to start with with your first survey
+        <div className="flex index">
+          <img src="star-rating.png" alt="clipboard" />
+          <div>Another tool for collecting feedback</div>
+          <div className="instructions">
+            <Link href="/signup">
+              <a>Create an account</a>
+            </Link>{' '}
+            to start with with your first survey
+          </div>
         </div>
       </Layout>
     </div>
