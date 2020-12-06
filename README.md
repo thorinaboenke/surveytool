@@ -38,7 +38,7 @@ PostgreSQL database with related tables for: Users, Session, Surveys, Question a
 
 ## App structure
 
-- create the necessary pages and api routes
+- create the necessary pages, components and api routes
 
 ## API routes
 
@@ -55,8 +55,9 @@ Deploy via Heroku
 
 ## Styling 🎨
 
-- no time for proper UX research, so i'll just go wild in whatever time is left. The world definitely needs more hotpink 👩🏻‍🎤, and
-- <img src="https://github.com/thorinaboenke/surveytool/blob/master/public/colorscheme.png" width="300" alt='colorscheme'>
+- no time for proper UX research, so i'll just go wild in whatever time is left. The world definitely needs more hotpink 👩🏻‍🎤, and https://www.sessions.edu/color-calculator/ makes a fitting colorscheme.
+<img src="https://github.com/thorinaboenke/surveytool/blob/master/public/colorscheme.png" width="300" alt='colorscheme'>
+- style for desktop and mobile view in parallel ( here trying for solutions that work for both without having to write a lot of media queries)
 
 ## Tidying 🧹
 
@@ -64,6 +65,7 @@ Deploy via Heroku
 - stray console.logs
 - comments where appropriate
 - double check error handling
+- give it someone to use and ask for feedback 
 
 ## Other features (for future rainy days, in order of importance) 🤓
 
