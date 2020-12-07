@@ -3,13 +3,13 @@
 This app got created as a coding challenge during a weekend following a job interview for a developer position.
 https://survey-t.herokuapp.com
 
-## Choosing a task 🤔
+## Chose a task 🤔
 
 1. Self Checkout App
 2. Hot Deals Platform
 3. Survey Tool ✅
 
-and Create a minimum viable product
+and create a minimum viable product:
 
 - Functionality
 - Design
@@ -32,7 +32,7 @@ Deciding on the core features, considering what is feasible in the given timefra
 - progress tracker, thank you message
 - (nice to have) possibility for free text feedback, display when the survey was created
 
-## Database Schema, writing migrations 💻
+## Database schema, writing migrations 💻
 
 PostgreSQL database with related tables for: Users, Session, Surveys, Question and Answers. Created in https://sqldbm.com
 <img src="https://github.com/thorinaboenke/surveytool/blob/master/public/t-survey_database_schema.png" width="600" alt='database schema'>
@@ -65,10 +65,10 @@ Deploy via Heroku
 - variable + function naming
 - stray console.logs
 - comments where appropriate
-- double check error handling
+- error handling
 - give it someone to use and ask for feedback 
 
-## Other features (for future rainy days, in order of importance) 🤓
+## Other features (for future rainy days) 🤓
 
 - custom slugs to access surveys (instead of the ids)
 - free text feedback
