@@ -56,6 +56,20 @@ export default function Questions(props) {
     }
   }
 
+  async function handleDeleteSurvey(id) {
+    const response = await fetch('/api/survey', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        surveyId: id,
+      }),
+    });
+    const { success } = await response.json();
+    if (success) router.push('/deleted');
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -102,6 +116,9 @@ export default function Questions(props) {
             })}
             <div className="instructions">Link for participants:</div>
             <a href={`/answers/${survey.surveyId}`}>{link}</a>
+            <button onClick={() => handleDeleteSurvey(survey.surveyId)}>
+              Delete this survey
+            </button>
           </div>
         </div>
       </Layout>

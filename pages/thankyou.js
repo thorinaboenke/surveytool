@@ -8,7 +8,7 @@ export default function Thankyou() {
         <title>SurveyTool - Thank you for participating</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex">
+      <div className="flex index">
         <div>Thank you for participating!</div>
         <div>
           <Link href="/signup">

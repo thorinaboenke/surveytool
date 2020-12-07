@@ -21,7 +21,7 @@ export default function Home(props) {
             <Link href="/signup">
               <a>Create an account</a>
             </Link>{' '}
-            to start with with your first survey
+            to start with your first survey
           </div>
         </div>
       </Layout>

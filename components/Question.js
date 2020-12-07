@@ -1,8 +1,5 @@
-import { useState } from 'react';
-
 function Question(props) {
-  const { question, submitAnswer, loading } = props;
-  const [score, setScore] = useState('');
+  const { question, submitAnswer, loading, score, setScore } = props;
 
   return (
     <div key={question.questionText}>

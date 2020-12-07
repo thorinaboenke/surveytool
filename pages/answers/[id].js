@@ -10,6 +10,7 @@ export default function Results(props) {
   const [questionList, setQuestionList] = useState(props.questionList);
   const [questionDisplayed, setQuestionDisplayed] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [score, setScore] = useState('');
 
   const router = useRouter();
   const survey = props.survey;
@@ -38,6 +39,7 @@ export default function Results(props) {
     if (success) {
       const next = questionDisplayed + 1;
       setQuestionDisplayed(next);
+      setScore('');
     }
   }
 
@@ -51,15 +53,19 @@ export default function Results(props) {
         <div className="answers">
           <div className="title">{survey.title}</div>
 
-          <div>
-            {' '}
-            {questionDisplayed + 1} of {questionList.length}
-          </div>
+          {questionDisplayed < questionList.length && (
+            <div>
+              {' '}
+              {questionDisplayed + 1} of {questionList.length}
+            </div>
+          )}
           {questionDisplayed < questionList.length && (
             <Question
               submitAnswer={submitAnswer}
               question={questionList[questionDisplayed]}
               loading={loading}
+              score={score}
+              setScore={setScore}
             />
           )}
         </div>

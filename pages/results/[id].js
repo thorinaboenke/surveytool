@@ -16,7 +16,7 @@ export default function Results(props) {
   const { survey, surveyResults } = props;
   const link = `https://survey-t.herokuapp.com/answers/${survey.surveyId}`;
 
-  async function handleDelete(id) {
+  async function handleDeleteSurvey(id) {
     const response = await fetch('/api/survey', {
       method: 'DELETE',
       headers: {
@@ -29,7 +29,7 @@ export default function Results(props) {
     const { success } = await response.json();
     if (success) router.push('/deleted');
   }
-  console.log({ surveyResults });
+
   return (
     <div className={styles.container}>
       <Head>
@@ -63,7 +63,7 @@ export default function Results(props) {
             })}
             <div className="instructions">Link for participants:</div>
             <a href={`/answers/${survey.surveyId}`}>{link}</a>
-            <button onClick={() => handleDelete(survey.surveyId)}>
+            <button onClick={() => handleDeleteSurvey(survey.surveyId)}>
               Delete this survey
             </button>
           </div>
