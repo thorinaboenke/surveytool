@@ -38,7 +38,7 @@ export default function Dashboard(props) {
       router.push(`/questions/${newSurvey.surveyId}`);
     }
   };
-
+  console.log({ surveys });
   return (
     <div>
       <Head>
@@ -49,11 +49,10 @@ export default function Dashboard(props) {
         <div className="dashboard">
           <div className="container">
             <div>
-              Enter the title for a new survey. Click 'Create survey'. Define a
-              set of questions. Send the link to participants. Participants can
-              give a rating between 1 and 5. Click 'Edit' to add or remove
-              questions and 'Go to results' to see the number of participants
-              and average ratings.
+              Enter the title for a new survey. Click 'Create survey'. 'Edit' to
+              add or remove questions. Send the link to participants.
+              Participants can give a rating between 1 and 5. 'Go to results' to
+              see the number of participants and average ratings.
             </div>
             <div>Logged in as: {props.user.username}</div>
             {surveys.length === 1 && (
@@ -85,6 +84,10 @@ export default function Dashboard(props) {
                       <div key={survey.title}>
                         <div className="title">{survey.title}</div>{' '}
                         <div>
+                          created:{' '}
+                          {JSON.parse(survey.createdAt).substring(0, 10)}
+                        </div>
+                        <div>
                           <Link href={`/questions/${survey.surveyId}`}>
                             <a>Edit</a>
                           </Link>
@@ -112,12 +115,18 @@ export async function getServerSideProps(context) {
   if (await isSessionTokenValid(token)) {
     const user = await getUserBySessionToken(token);
     const surveys = await getSurveysByToken(token);
+    let serializedSurveys = [];
+    if (surveys) {
+      serializedSurveys = surveys.map((s) => {
+        return { ...s, createdAt: JSON.stringify(s.createdAt) };
+      });
+    }
 
     return {
       props: {
         user: user,
         loggedIn: true,
-        surveys: surveys,
+        surveys: serializedSurveys,
       },
     };
   }

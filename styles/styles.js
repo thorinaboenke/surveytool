@@ -56,6 +56,11 @@ export const globalStyles = (
       input {
         border-radius: 5px;
         margin: 0.3em;
+        width: 200px;
+      }
+
+      .questions input {
+        margin-left: 0;
       }
       .header {
         background-color: ${colors.dark};
@@ -116,11 +121,12 @@ export const globalStyles = (
       .signup button,
       .dashboard button,
       .answers button,
-      .results button {
+      .results button,
+      .questions button {
         display: block;
         margin: 0;
         margin-top: 2em;
-        width: 100%;
+        width: 200px;
       }
 
       .surveycontainer {
@@ -172,9 +178,6 @@ export const globalStyles = (
         margin-top: 2em;
         display: flex;
         flex-direction: column;
-      }
-      .questions button {
-        margin: 0.5em;
       }
       .results .question-text {
         color: ${colors.red};

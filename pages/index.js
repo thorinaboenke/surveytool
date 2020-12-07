@@ -5,7 +5,6 @@ import nextCookies from 'next-cookies';
 import { isSessionTokenValid } from '../util/auth';
 import { getUserBySessionToken } from '../util/database';
 
-
 export default function Home(props) {
   return (
     <div>
@@ -15,7 +14,7 @@ export default function Home(props) {
       </Head>
       <Layout loggedIn={props.loggedIn} user={props.user}>
         <div className="flex index">
-          <img src="star-rating.png" alt="clipboard" />
+          <img src="/star-rating.png" alt="clipboard" />
           <div>Another tool for collecting feedback</div>
           <div className="instructions">
             <Link href="/signup">

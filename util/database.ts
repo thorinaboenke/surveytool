@@ -25,7 +25,7 @@ export async function getUserByUsername(username: string) {
 
 export async function registerUser(username: string, passwordHash: string) {
   if (!username || !passwordHash) {
-    return false;
+    return;
   }
   const users = await sql<User[]>`
     INSERT INTO users
@@ -38,7 +38,7 @@ export async function registerUser(username: string, passwordHash: string) {
 }
 export async function insertSession(token: string, userId: number) {
   if (!token || !userId) {
-    return false;
+    return;
   }
   const sessions = await sql<Session[]>`
     INSERT INTO sessions
@@ -53,7 +53,7 @@ export async function insertSession(token: string, userId: number) {
 
 export async function getSessionByToken(token: string) {
   if (!token) {
-    return undefined;
+    return;
   }
   const sessions = await sql<Session[]>`
   SELECT FROM sessions WHERE token = ${token};
@@ -71,7 +71,7 @@ export async function deleteExpiredSessions() {
 
 export async function getUserBySessionToken(token: string) {
   if (!token) {
-    return false;
+    return;
   }
 
   const users = await sql<User[]>`SELECT
@@ -89,7 +89,7 @@ export async function getUserBySessionToken(token: string) {
 
 export async function deleteUserByUsername(username: string, token: string) {
   if (!token) {
-    return false;
+    return;
   }
   const users = await sql<User[]>`
   DELETE FROM users where username = ${username} AND user_id = (SELECT user_id FROM sessions WHERE
@@ -104,7 +104,7 @@ export async function getSurveysByToken(token: string) {
   }
 
   const surveys = await sql<Survey[]>`SELECT
- surveys.survey_id, surveys.title
+ surveys.survey_id, surveys.title, surveys.created_at
   FROM
   surveys,
   sessions
@@ -143,7 +143,7 @@ export async function getSurveyResultsById(id: number) {
 
 export async function deleteSurveyById(id: number, token: string) {
   if (!token) {
-    return false;
+    return;
   }
   const survey = await sql<Survey[]>`
     DELETE FROM surveys where survey_id = ${id} AND user_id = (SELECT user_id FROM sessions WHERE
@@ -154,7 +154,7 @@ export async function deleteSurveyById(id: number, token: string) {
 
 export async function createSurvey(title: string, token: string) {
   if (!token) {
-    return false;
+    return;
   }
   const user = await getUserBySessionToken(token);
   if (user) {
@@ -185,7 +185,7 @@ export async function createQuestion(text: string, id: number, token: string) {
 
 export async function deleteQuestionById(id: number, token: string) {
   if (!token) {
-    return false;
+    return;
   }
   const question = await sql<Question[]>`
     DELETE FROM questions where question_id = ${id}
