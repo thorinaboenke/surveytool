@@ -1,6 +1,6 @@
 # Survey Tool MVP 🚀
 
-This app got created as a coding challenge during a weekend following a job interview for a developer position.
+Created as a coding challenge during a weekend following a job interview for a developer position.
 https://survey-t.herokuapp.com
 
 ## Chose a task 🤔
@@ -26,11 +26,12 @@ Deciding on the core features, considering what is feasible in the given timefra
 - Creating surveys with a title and an arbitrary amount of questions/rating categories
 - Delete option for surveys and single questions
 - Dashboard with all created surveys of a user
-- Overview page for each survey with the number of participants and average scores
-- dynamic url for filling out the survey (anonymously)
+- display when the survey was created
+- dynamic page for each survey with the number of participants and average scores
+- dynamic page for filling out the survey (anonymously)
 - rating options 1-5 for each question/category
 - progress tracker, thank you message
-- (nice to have) possibility for free text feedback, display when the survey was created
+- (nice to have) possibility for free text feedback
 
 ## Database schema, writing migrations 💻
 
@@ -64,7 +65,7 @@ Deploy via Heroku
 
 - variable + function naming
 - stray console.logs
-- comments where appropriate
+- comments
 - error handling
 - give it someone to use and ask for feedback 
 
