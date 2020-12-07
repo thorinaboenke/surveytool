@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
-import styles from '../../styles/Home.module.css';
 import nextCookies from 'next-cookies';
 import { useState } from 'react';
 import { isSessionTokenValid } from '../../util/auth';
@@ -18,7 +17,6 @@ export default function Questions(props) {
   const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
   const survey = props.survey;
-  const surveyResults = props.surveyResults;
   const link = `https://survey-t.herokuapp.com/answers/${survey.surveyId}`;
 
   async function handleDeleteQuestion(id) {
@@ -71,7 +69,7 @@ export default function Questions(props) {
   }
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Survey Editor</title>
         <link rel="icon" href="/favicon.ico" />

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Layout from '../components/Layout';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -17,7 +17,7 @@ export default function Login(props) {
   }, []);
 
   const router = useRouter();
-  // TODO set the error message
+
   return (
     <Layout loggedIn={props.loggedIn}>
       <Head>

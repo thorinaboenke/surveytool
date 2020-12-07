@@ -3,10 +3,9 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../components/Layout';
-import styles from '../styles/Home.module.css';
+import nextCookies from 'next-cookies';
 import { isSessionTokenValid } from '../util/auth';
 import { getUserBySessionToken, getSurveysByToken } from '../util/database';
-import nextCookies from 'next-cookies';
 
 export default function Dashboard(props) {
   const [surveys, setSurveys] = useState(props.surveys);
@@ -41,7 +40,7 @@ export default function Dashboard(props) {
   };
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>SurveyTool</title>
         <link rel="icon" href="/favicon.ico" />
@@ -52,8 +51,7 @@ export default function Dashboard(props) {
             <div>
               Enter the title for a new survey. Click 'Create survey'. Define a
               set of questions. Send the link to participants. Participants can
-              give a rating between 1 (worst rating/don't agree at all) and 5
-              (best rating/agree completely). Click 'Edit' to add or remove
+              give a rating between 1 and 5. Click 'Edit' to add or remove
               questions and 'Go to results' to see the number of participants
               and average ratings.
             </div>

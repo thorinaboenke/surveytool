@@ -1,13 +1,10 @@
 import Link from 'next/link';
 import React from 'react';
-import { colors } from '../util/colors';
 import { useRouter } from 'next/router';
-import styles from '../styles/Home.module.css';
 
 function Header(props) {
   const loggedInPassed = typeof props.loggedIn !== 'undefined';
   const router = useRouter();
-  const user = props.user;
 
   return (
     <div>

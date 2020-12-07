@@ -161,7 +161,6 @@ export async function createSurvey(title: string, token: string) {
     const newSurvey = await sql<Survey[]>`
   INSERT into surveys (title, user_id) VALUES (${title},${user.userId} )
   Returning *;`;
-    console.log(newSurvey);
     return newSurvey.map((s: Survey) => camelcaseKeys(s))[0];
   }
 }

@@ -7,10 +7,14 @@ export const globalStyles = (
       html,
       body {
         margin: 0;
+        padding: 0;
         background: ${colors.light};
         min-height: 100%;
         font-family: monospace;
         font-size: 18px;
+      }
+      * {
+        box-sizing: border-box;
       }
       .main {
         flex: 1;

@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import Layout from '../components/Layout';
+import nextCookies from 'next-cookies';
 import { useRouter } from 'next/router';
 import { isSessionTokenValid } from '../util/auth';
-import nextCookies from 'next-cookies';
 
 export default function Signup(props) {
   const [username, setUsername] = useState('');
@@ -41,7 +41,7 @@ export default function Signup(props) {
 
               const { success, errors } = await response.json();
               if (success) {
-                // redirect to homepage if successfully registered
+                // redirect to dashboard if successfully registered
                 const log = await fetch('/api/login', {
                   method: 'POST',
                   headers: {
@@ -49,7 +49,7 @@ export default function Signup(props) {
                   },
                   body: JSON.stringify({ username, password }),
                 });
-                router.push('/');
+                router.push('/dashboard');
               } else {
                 // If the response status is 409 (conflict), i.e. user already exists show an error message
                 if (response.status === 409) {

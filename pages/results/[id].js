@@ -1,15 +1,14 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import Layout from '../../components/Layout';
-import styles from '../../styles/Home.module.css';
+import nextCookies from 'next-cookies';
 import { isSessionTokenValid } from '../../util/auth';
 import {
   getUserBySessionToken,
   getSurveyById,
   getSurveyResultsById,
 } from '../../util/database';
-import nextCookies from 'next-cookies';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 
 export default function Results(props) {
   const router = useRouter();
@@ -31,7 +30,7 @@ export default function Results(props) {
   }
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Survey Results</title>
         <link rel="icon" href="/favicon.ico" />

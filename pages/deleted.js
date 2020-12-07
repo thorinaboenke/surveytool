@@ -1,10 +1,9 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../components/Layout';
-import styles from '../styles/Home.module.css';
+import nextCookies from 'next-cookies';
 import { isSessionTokenValid } from '../util/auth';
 import { getUserBySessionToken } from '../util/database';
-import nextCookies from 'next-cookies';
 
 export default function Home(props) {
   return (

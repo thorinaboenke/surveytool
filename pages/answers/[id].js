@@ -1,10 +1,9 @@
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Layout from '../../components/Layout';
-import styles from '../../styles/Home.module.css';
-import { useState, useEffect } from 'react';
+import Question from '../../components/Question';
 import { getSurveyById, getQuestionListBySurveyId } from '../../util/database';
 import { useRouter } from 'next/router';
-import Question from '../../components/Question';
 
 export default function Results(props) {
   const [questionList, setQuestionList] = useState(props.questionList);
@@ -44,7 +43,7 @@ export default function Results(props) {
   }
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Survey-T</title>
         <link rel="icon" href="/favicon.ico" />
