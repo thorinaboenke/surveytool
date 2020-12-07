@@ -39,7 +39,7 @@ export default function Signup(props) {
                 }),
               });
 
-              const { success, errors } = await response.json();
+              const { success, message } = await response.json();
               if (success) {
                 // redirect to dashboard if successfully registered
                 const log = await fetch('/api/login', {
@@ -52,11 +52,8 @@ export default function Signup(props) {
                 router.push('/dashboard');
               } else {
                 // If the response status is 409 (conflict), i.e. user already exists show an error message
-                if (response.status === 409) {
-                  setErrorMessage('User already exists');
-                }
-                if (response.status === 400) {
-                  setErrorMessage(errors[0].message);
+                if (response.status >= 400) {
+                  setErrorMessage(message);
                 } else {
                   setErrorMessage('Something went wrong');
                 }

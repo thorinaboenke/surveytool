@@ -67,10 +67,7 @@ function Question(props) {
         </label>
       </div>
 
-      <button
-        onClick={() => submitAnswer(question.questionId, score)}
-        disabled={score === ''}
-      >
+      <button onClick={() => submitAnswer(question.questionId, score)}>
         Submit Answer
       </button>
     </div>

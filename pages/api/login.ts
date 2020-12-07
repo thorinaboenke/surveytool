@@ -16,16 +16,18 @@ export default async function handler(
   const user = await getUserByUsername(username);
   // if user does not exist deny access
   if (typeof user === 'undefined') {
-    // TODO return proper message from the server here
-    return response.status(401).send({ success: false });
+    return response
+      .status(401)
+      .send({ success: false, message: 'username does not exist' });
   }
 
   // verify with argon if the entered password matches the password hash in the database
   const passwordVerified = await argon2.verify(user.passwordHash, password);
   // if password can't be verified, deny access
   if (!passwordVerified) {
-    // TODO return proper message from the server here
-    return response.status(401).send({ success: false });
+    return response
+      .status(401)
+      .send({ success: false, message: 'password and username do not match' });
   }
 
   // generate new session token (represent correct authentication) with crypto

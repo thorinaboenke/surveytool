@@ -58,6 +58,9 @@ export const globalStyles = (
         margin: 0.3em;
         width: 200px;
       }
+      .answers input {
+        width: 100%;
+      }
 
       .questions input {
         margin-left: 0;

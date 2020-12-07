@@ -35,10 +35,10 @@ export default function Login(props) {
                 },
                 body: JSON.stringify({ username, password }),
               });
-              const { success } = await response.json();
+              const { success, message } = await response.json();
 
               if (!success) {
-                setErrorMessage('Login failed');
+                setErrorMessage(message);
               } else {
                 setErrorMessage('');
                 router.push(props.redirectDestination);

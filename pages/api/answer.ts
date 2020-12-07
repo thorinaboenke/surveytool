@@ -8,9 +8,9 @@ export default async function handler(
   if (request.method === 'POST') {
     const { questionId, score } = request.body;
     if (!score) {
-      return response.status(401).send({
+      return response.status(400).send({
         success: false,
-        errors: [{ message: 'Score cannot be empty' }],
+        message: 'please choose a rating',
       });
     }
     const answer = await addAnswerByQuestionId(questionId, score);

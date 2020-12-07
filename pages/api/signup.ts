@@ -32,21 +32,14 @@ export default async function handler(
   if (usernameEmpty) {
     return response.status(400).send({
       success: false,
-      errors: [
-        {
-          message: 'username cannot be empty',
-        },
-      ],
+      message: 'username cannot be empty',
     });
   }
   if (passwordEmpty) {
     return response.status(400).send({
       success: false,
-      errors: [
-        {
-          message: 'password cannot be empty',
-        },
-      ],
+
+      message: 'password cannot be empty',
     });
   }
 
@@ -63,11 +56,7 @@ export default async function handler(
   if (!verified) {
     return response.status(401).send({
       success: false,
-      errors: [
-        {
-          message: 'invalid token',
-        },
-      ],
+      message: 'invalid token',
     });
   }
 
@@ -79,12 +68,7 @@ export default async function handler(
     // HTTP status code: 409 Conflict
     return response.status(409).send({
       success: false,
-      errors: [
-        {
-          message: 'Username already taken',
-          field: 'user',
-        },
-      ],
+      message: 'User already exists',
     });
   }
   // create a hashed version of the password with argon2 and register user in database

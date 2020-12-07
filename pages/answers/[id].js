@@ -10,6 +10,7 @@ export default function Results(props) {
   const [questionDisplayed, setQuestionDisplayed] = useState(0);
   const [loading, setLoading] = useState(false);
   const [score, setScore] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const router = useRouter();
   const survey = props.survey;
@@ -34,11 +35,15 @@ export default function Results(props) {
         score: score,
       }),
     });
-    const { success } = await response.json();
+    const { success, message } = await response.json();
     if (success) {
+      setErrorMessage('');
       const next = questionDisplayed + 1;
       setQuestionDisplayed(next);
       setScore('');
+    }
+    if (!success) {
+      setErrorMessage(message);
     }
   }
 
@@ -67,6 +72,7 @@ export default function Results(props) {
               setScore={setScore}
             />
           )}
+          {errorMessage && <div>{errorMessage}</div>}
         </div>
       </Layout>
     </div>

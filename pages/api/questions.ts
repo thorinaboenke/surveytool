@@ -11,7 +11,9 @@ export default async function handler(
 
     const question = await deleteQuestionById(questionId, token);
     if (!question) {
-      return response.status(401).send({ success: false });
+      return response
+        .status(500)
+        .send({ success: false, message: 'Question could not be deleted' });
     }
     return response.status(200).send({ success: true });
   }
@@ -19,14 +21,16 @@ export default async function handler(
     const { text, surveyId } = request.body;
     const token = request.cookies.session;
     if (!text) {
-      return response.status(401).send({
+      return response.status(400).send({
         success: false,
-        errors: [{ message: 'Question cannot be empty' }],
+        message: 'Question cannot be empty',
       });
     }
     const question = await createQuestion(text, surveyId, token);
     if (!question) {
-      return response.status(401).send({ success: false });
+      return response
+        .status(500)
+        .send({ success: false, message: 'Question could not be saved' });
     }
     return response.status(200).send({ success: true });
   }
