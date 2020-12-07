@@ -45,7 +45,7 @@ PostgreSQL database with related tables for: Users, Session, Surveys, Question a
 ## API routes
 
 - create API endpoints for signup, login, saving/modifying surveys, questions and answers to the database
-- write corresponding database queries, inserts etc.
+- write corresponding database queries, table joins, inserts,  etc.
 
 ## Pages 📄
 
@@ -59,7 +59,7 @@ Deploy via Heroku
 
 - no time for proper UX research, so i'll just go wild in whatever time is left. The world definitely needs more hotpink 👩🏻‍🎤, and https://www.sessions.edu/color-calculator/ makes a fitting colorscheme.
 <img src="https://github.com/thorinaboenke/surveytool/blob/master/public/colorscheme.png" width="300" alt='colorscheme'>
-- style for desktop and mobile view in parallel (here trying for solutions that work for both without having to write a lot of media queries)
+- style for desktop and mobile view in parallel (here trying for solutions that work for both without having to write a lot of media queries), one document with global styles with emotion
 
 ## Tidying 🧹
 
@@ -67,7 +67,19 @@ Deploy via Heroku
 - stray console.logs
 - comments
 - error handling
-- give it someone to use and ask for feedback 
+- give it someone to test and ask for feedback 
+
+## Libraries used
+- crypto
+- argon2
+- csrf
+- next-cookies
+- cookie
+- camelcaseKeys
+- postgres
+- dotenv
+- dotenv-cli
+- emotion
 
 ## Other features (for future rainy days) 🤓
 
@@ -78,6 +90,7 @@ Deploy via Heroku
 - possibility to leave feedback non-anonymously
 - template invite email
 - better result visualization
+
 
 ## Lessons learned 👩🏻‍🏫
 
