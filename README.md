@@ -1,7 +1,6 @@
 # Survey Tool MVP 🚀
 
 Created as a coding challenge during a weekend following a job interview for a developer position.
-https://survey-t.herokuapp.com
 
 ## Chose a task 🤔
 
